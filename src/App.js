@@ -1,23 +1,27 @@
-import logo from './logo.svg';
 import './App.css';
-
+import { useState } from 'react';
 function App() {
+  const [result, setResults] = useState('');
+  // SoHzhQbBxv_zXCZy0oGOnaGqCq-YkXoQbsOuRNXcYFI
+
+  const fetchImage = () => {
+    fetch(`https://api.chucknorris.io/jokes/random?category=celebrity`)
+      .then(res => res.json())
+      .then(data => {
+        console.log(data.value);
+        setResults(data.value);
+      })
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+      <div className='jokesbox'>
+        <p>{result}</p>
+      </div>
+
+      <div className='btn'>
+        <button onClick={fetchImage}>Search</button>
+      </div>
     </div>
   );
 }
